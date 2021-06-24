@@ -1,25 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Navbar from "./components/Navbar";
+import HeroSection from "./components/HeroSection";
+import CartSection from "./components/CartSection";
+import Checkout from "./components/Checkout";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const [cart, setCart] = useState([]);
+
+	const addInCart = (item) => {
+		const isAlreadyAdded = cart.findIndex(function (array) {
+			return array.id === item.id;
+		});
+
+		if (isAlreadyAdded !== -1) {
+			toast.error("already added");
+		} else {
+			setCart([...cart, item]);
+			console.log(cart);
+		}
+	};
+
+	const buyItems = () => {
+		setCart([]);
+		toast.success("Purchase Complete");
+	};
+
+	const removeItem = (item) => {
+		const newCart = cart.filter((singleItem) => singleItem.id !== item.id);
+
+		setCart(newCart);
+
+		toast.info("item removed");
+	};
+
+	return (
+		<div>
+			<Navbar cart={cart} />
+			<HeroSection />
+			<CartSection addInCart={addInCart} />
+			<Checkout cart={cart} buyItems={buyItems} removeItem={removeItem} />
+		</div>
+	);
+};
 
 export default App;
