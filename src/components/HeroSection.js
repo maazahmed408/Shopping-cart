@@ -6,7 +6,7 @@ const HeroSection = () => {
 		<section className="hero-section">
 			<h1>Shop</h1>
 			<h2 style={{ fontStyle: "italic", marginTop: "10px" }}>
-				"Thank You Hitesh Sir"
+				"Expand Button not working and it's not responsive"
 			</h2>
 		</section>
 	);
